@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Automação - Afiliados</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-900 text-white hidden md:flex flex-col justify-between">
+            <div class="p-5">
+                <div class="flex items-center space-x-2 mb-8">
+                    <span class="text-2xl font-bold text-orange-500">🚀 ShôIA</span>
+                    <span class="text-xs bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded">Pro</span>
+                </div>
+                <nav class="space-y-1 text-sm">
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-orange-600 text-white font-medium">📊 <span>Painel</span></a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">🔗 <span>Canais & Templates</span></a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">📦 <span>Produtos</span></a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">🤖 <span>Automações</span></a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">🖼️ <span>Imagens IA</span></a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">📅 <span>Agendamentos</span></a>
+                </nav>
+            </div>
+            <div class="p-4 bg-slate-950 text-xs text-slate-400">
+                <p>Créditos disponíveis: <strong class="text-white">R$ 150,00</strong></p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            <header class="bg-white shadow-sm h-16 flex items-center justify-between px-6">
+                <h1 class="text-xl font-bold text-slate-800">Visão Geral da Performance</h1>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-slate-600">Olá, Afiliado(a)</span>
+                </div>
+            </header>
+
+            <div class="p-6 space-y-6">
+                <!-- Metrics Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                        <p class="text-sm text-slate-500">Produtos Mais Vendidos</p>
+                        <h3 class="text-2xl font-bold text-slate-800 mt-1">Smart TV 49" UHD</h3>
+                        <span class="text-xs text-green-600 font-medium">+12% que ontem</span>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                        <p class="text-sm text-slate-500">Itens Vendidos (7 dias)</p>
+                        <h3 class="text-2xl font-bold text-slate-800 mt-1">1.240 un.</h3>
+                        <span class="text-xs text-green-600 font-medium">Meta batida</span>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                        <p class="text-sm text-slate-500">Comissões Acumuladas</p>
+                        <h3 class="text-2xl font-bold text-orange-600 mt-1">R$ 4.890,20</h3>
+                        <span class="text-xs text-slate-400">Atualizado agora</span>
+                    </div>
+                </div>
+
+                <!-- Automation Settings Preview -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h2 class="text-lg font-semibold text-slate-800 mb-4">Configuração de Disparos e Stories</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 border rounded-lg bg-slate-50">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Volume por Disparo</label>
+                            <input type="text" value="1 a 20 produtos por grupo" readonly class="w-full bg-white border border-slate-300 rounded-lg p-2 text-sm text-slate-600">
+                        </div>
+                        <div class="p-4 border rounded-lg bg-slate-50">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Janela de Horário</label>
+                            <input type="text" value="08:00 às 22:00 (Rotativo)" readonly class="w-full bg-white border border-slate-300 rounded-lg p-2 text-sm text-slate-600">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

@@ -4,149 +4,238 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Automação - Afiliados | ShôIA</title>
-    <script src="https://tailwindcss.com"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8fafc; color: #334155; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Barra Lateral */
+        aside { width: 250px; background-color: #0f172a; color: white; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; box-shadow: 4px 0 10px rgba(0,0,0,0.1); }
+        .logo-area { display: flex; align-items: center; gap: 8px; margin-bottom: 30px; }
+        .logo-title { font-size: 24px; font-weight: bold; color: #f97316; }
+        .badge { background-color: rgba(249, 115, 22, 0.2); color: #fdba74; font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
+        
+        /* Botões de Navegação */
+        nav { display: flex; flex-direction: column; gap: 8px; }
+        .menu-btn { width: 100%; border: none; padding: 12px 16px; border-radius: 10px; text-align: left; background: transparent; color: #94a3b8; font-size: 14px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+        .menu-btn:hover { background-color: #1e293b; color: white; }
+        .menu-btn.active { background-color: #ea580c; color: white; font-weight: 600; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2); }
+        
+        /* Conteúdo Principal */
+        main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        header { height: 64px; background-color: white; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        h1 { font-size: 20px; color: #1e293b; font-weight: 700; }
+        .status-badge { background-color: #f1f5f9; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; color: #475569; display: flex; align-items: center; gap: 6px; text-transform: uppercase; }
+        .status-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; }
+        
+        /* Área das Páginas */
+        .page-container { padding: 30px; max-width: 1100px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        .tab-content { display: flex; flex-direction: column; gap: 24px; }
+        .hidden { display: none !important; }
+        
+        /* Cards Informativos */
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 24px; border-radius: 16px; border: 1px solid #f1f5f9; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        .card-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.5px; }
+        .card-value { font-size: 22px; font-weight: 800; color: #1e293b; margin-top: 8px; }
+        .card-value.orange { color: #ea580c; font-size: 28px; }
+        .card-sub { font-size: 12px; color: #16a34a; font-weight: 600; display: block; margin-top: 6px; }
+        
+        /* Formulários e Inputs */
+        .panel-box { background: white; padding: 30px; border-radius: 16px; border: 1px solid #f1f5f9; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01); position: relative; }
+        .panel-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #f97316, #f59e0b); border-radius: 16px 16px 0 0; }
+        .panel-title { font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+        .panel-desc { font-size: 13px; color: #64748b; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 6px; }
+        input[type="text"] { width: 100%; padding: 12px; border: 1px solid #cbd5e1; background-color: #f8fafc; border-radius: 10px; font-size: 14px; color: #334155; transition: all 0.2s; }
+        input[type="text"]:focus { background-color: white; border-color: #f97316; outline: none; box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15); }
+        input[readonly] { font-family: monospace; color: #047857; background-color: #f0fdf4; border-color: #bbf7d0; }
+        
+        /* Botões */
+        .btn-primary { width: 100%; background: linear-gradient(135deg, #f97316, #ea580c); color: white; border: none; padding: 14px; font-size: 14px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: transform 0.1s, opacity 0.2s; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2); }
+        .btn-primary:hover { opacity: 0.95; }
+        .btn-primary:active { transform: scale(0.99); }
+        
+        /* Caixa de Sucesso */
+        .success-box { background-color: #f0fdf4; border: 1px solid #bbf7d0; padding: 16px; border-radius: 12px; margin-top: 20px; }
+        .success-label { font-size: 11px; font-weight: 700; color: #16a34a; text-transform: uppercase; margin-bottom: 6px; display: block; }
+        .flex-row { display: flex; gap: 10px; }
+        .btn-copy { background-color: #16a34a; color: white; border: none; padding: 0 20px; font-weight: bold; border-radius: 10px; cursor: pointer; font-size: 14px; transition: background 0.2s; }
+        .btn-copy:hover { background-color: #15803d; }
+        
+        /* Rodapé de créditos */
+        .credits-area { background-color: #020617; padding: 12px; border-radius: 10px; border: 1px solid #1e293b; font-size: 12px; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; margin: 16px; }
+        .credits-value { color: #4ade80; font-family: monospace; font-weight: bold; }
+    </style>
 </head>
-<body class="bg-gray-50 font-sans">
+<body>
 
-    <div class="flex h-screen overflow-hidden">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-slate-900 text-white hidden md:flex flex-col justify-between">
-            <div class="p-5">
-                <div class="flex items-center space-x-2 mb-8">
-                    <span class="text-2xl font-bold text-orange-500">🚀 ShôIA</span>
-                    <span class="text-xs bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded">Pro</span>
-                </div>
-                <nav class="space-y-1 text-sm">
-                    <button onclick="mudarAba('painel', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-orange-600 text-white font-medium text-left transition-all">📊 <span>Painel</span></button>
-                    <button onclick="mudarAba('canais', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">🔗 <span>Canais & Templates</span></button>
-                    <button onclick="mudarAba('produtos', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">📦 <span>Produtos</span></button>
-                    <button onclick="mudarAba('automacoes', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">🤖 <span>Automações</span></button>
-                    <button onclick="mudarAba('imagens', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">🖼️ <span>Imagens IA</span></button>
-                    <button onclick="mudarAba('agendamentos', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">📅 <span>Agendamentos</span></button>
-                </nav>
+    <!-- Barra Lateral -->
+    <aside>
+        <div>
+            <div class="logo-area">
+                <span class="logo-title">🚀 ShôIA</span>
+                <span class="badge">Pro</span>
             </div>
-            <div class="p-4 bg-slate-950 text-xs text-slate-400">
-                <p>Créditos disponíveis: <strong class="text-white">R$ 150,00</strong></p>
+            <nav>
+                <button onclick="mudarAba('painel', this)" class="menu-btn active"><span>📊</span> <span>Painel Geral</span></button>
+                <button onclick="mudarAba('canais', this)" class="menu-btn"><span>🔗</span> <span>Canais & Templates</span></button>
+                <button onclick="mudarAba('produtos', this)" class="menu-btn"><span>📦</span> <span>Produtos Integrados</span></button>
+                <button onclick="mudarAba('automacoes', this)" class="menu-btn"><span>🤖</span> <span>Automações</span></button>
+                <button onclick="mudarAba('imagens', this)" class="menu-btn"><span>🖼️</span> <span>Imagens IA</span></button>
+                <button onclick="mudarAba('agendamentos', this)" class="menu-btn"><span>📅</span> <span>Agendamentos</span></button>
+            </nav>
+        </div>
+        <div class="credits-area">
+            <span>Créditos disponíveis:</span>
+            <span class="credits-value">R$ 150,00</span>
+        </div>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <header>
+            <h1 id="tituloTopo">Visão Geral da Performance</h1>
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                <span>Afiliado Conectado</span>
             </div>
-        </aside>
+        </header>
 
-        <!-- Main Content -->
-        <main class="flex-1 flex flex-col overflow-y-auto">
-            <header class="bg-white shadow-sm h-16 flex items-center justify-between px-6">
-                <h1 id="tituloTopo" class="text-xl font-bold text-slate-800">Visão Geral da Performance</h1>
-                <div class="flex items-center space-x-4">
-                    <span class="text-sm text-slate-600">Olá, Afiliado(a)</span>
+        <div class="page-container">
+            
+            <!-- ABA 1: PAINEL -->
+            <div id="aba-painel" class="tab-content">
+                <div class="grid-cards">
+                    <div class="card">
+                        <p class="card-label">Produtos Mais Vendidos</p>
+                        <h3 class="card-value">Smart TV 49" UHD</h3>
+                        <span class="card-sub">▲ +12% que ontem</span>
+                    </div>
+                    <div class="card">
+                        <p class="card-label">Itens Vendidos (7 dias)</p>
+                        <h3 class="card-value">1.240 un.</h3>
+                        <span class="card-sub" style="color: #2563eb;">✓ Meta batida</span>
+                    </div>
+                    <div class="card" style="background: linear-gradient(135deg, #fffaf8, white);">
+                        <p class="card-label">Comissões Acumuladas</p>
+                        <h3 class="card-value orange">R$ 4.890,20</h3>
+                        <span class="card-sub" style="color: #64748b;">🕒 Atualizado agora</span>
+                    </div>
                 </div>
-            </header>
 
-            <div class="p-6">
-                
-                <!-- ABA 1: PAINEL (Gerador Sempre Visível no Topo) -->
-                <div id="aba-painel" class="space-y-6 tab-content">
+                <div class="panel-box">
+                    <h2 class="panel-title">Buscar Produto ou Criar Link de Divulgação</h2>
+                    <p class="panel-desc">Insira um termo de busca (ex: calça, saia, perfume) ou cole uma URL original da Shopee para embutir seu ID.</p>
                     
-                    <!-- Bloco do Gerador/Buscador -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                        <h2 class="text-lg font-semibold text-slate-800 mb-2">Buscar Produto ou Converter Link</h2>
-                        <p class="text-xs text-slate-500 mb-4">Digite o que você quer buscar (ex: calça, perfume) ou cole um link original da Shopee.</p>
-                        
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Seu ID de Afiliado</label>
-                                <input type="text" id="afiliadoId" value="meu_id_shopee" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm font-mono text-slate-800 focus:ring-2 focus:ring-orange-500 focus:outline-none">
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">O que você quer divulgar?</label>
-                                <input type="text" id="linkOriginal" placeholder="Digite o produto (ex: uma saia) ou cole o link aqui..." class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 focus:ring-2 focus:ring-orange-500 focus:outline-none">
-                            </div>
-
-                            <button onclick="gerarLinkAfiliado()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2.5 px-4 rounded-lg transition text-sm">
-                                ✨ Gerar Link Automático
-                            </button>
-
-                            <div id="resultadoDiv" class="hidden p-4 border border-green-200 bg-green-50 rounded-lg mt-4">
-                                <label class="block text-sm font-medium text-green-800 mb-1">Seu Link Pronto de Afiliado:</label>
-                                <div class="flex space-x-2">
-                                    <input type="text" id="linkPronto" readonly class="flex-1 bg-white border border-green-300 rounded-lg p-2 text-sm text-green-700 font-mono">
-                                    <button onclick="copiarTexto()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                                        Copiar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Seu ID de Afiliado Shopee</label>
+                        <input type="text" id="afiliadoId" value="meu_id_shopee">
                     </div>
 
-                    <!-- Dados de Vendas (Fica logo abaixo do gerador) -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
-                            <p class="text-sm text-slate-500">Produtos Mais Vendidos</p>
-                            <h3 class="text-2xl font-bold text-slate-800 mt-1">Smart TV 49" UHD</h3>
-                            <span class="text-xs text-green-600 font-medium">+12% que ontem</span>
-                        </div>
-                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
-                            <p class="text-sm text-slate-500">Itens Vendidos (7 dias)</p>
-                            <h3 class="text-2xl font-bold text-slate-800 mt-1">1.240 un.</h3>
-                            <span class="text-xs text-green-600 font-medium">Meta batida</span>
-                        </div>
-                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
-                            <p class="text-sm text-slate-500">Comissões Acumuladas</p>
-                            <h3 class="text-2xl font-bold text-orange-600 mt-1">R$ 4.890,20</h3>
-                            <span class="text-xs text-slate-400">Atualizado agora</span>
+                    <div class="form-group">
+                        <label class="form-label">O que você quer promover?</label>
+                        <input type="text" id="linkOriginal" placeholder="Digite o nome do item ou cole o link aqui...">
+                    </div>
+
+                    <button onclick="gerarLinkAfiliado()" class="btn-primary">✨ Gerar Link Automático com IA</button>
+
+                    <div id="resultadoDiv" class="success-box hidden">
+                        <label class="success-label">🎉 Seu Link de Afiliado Pronto:</label>
+                        <div class="flex-row">
+                            <input type="text" id="linkPronto" readonly>
+                            <button onclick="copiarTexto()" class="btn-copy">Copiar</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- ABA 2: CANAIS & TEMPLATES -->
-                <div id="aba-canais" class="space-y-6 tab-content hidden">
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                        <h2 class="text-lg font-semibold text-slate-800 mb-2">Canais & Templates de Mensagens</h2>
-                        <p class="text-sm text-slate-600 mb-4">Escolha um modelo pronto para divulgar nos seus grupos.</p>
-                        <div class="p-4 border rounded-lg bg-slate-50 max-w-md">
-                            <h3 class="font-bold text-slate-800">🔥 Achadinho da Shopee</h3>
-                            <p class="text-xs text-slate-500 mt-1">Modelo focado em escassez e desconto relâmpago.</p>
-                            <button onclick="alert('Template copiado!')" class="mt-3 bg-slate-900 text-white text-xs px-3 py-1.5 rounded">Usar Template</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- OUTRAS ABAS -->
-                <div id="aba-produtos" class="tab-content hidden"><div class="bg-white p-6 rounded-xl"><h2 class="text-lg font-bold">📦 Seus Produtos</h2><p class="text-sm text-slate-500">Gerencie a lista de produtos aqui.</p></div></div>
-                <div id="aba-automacoes" class="tab-content hidden"><div class="bg-white p-6 rounded-xl"><h2 class="text-lg font-bold">🤖 Automações</h2><p class="text-sm text-slate-500">Configure seus robôs de postagem.</p></div></div>
-                <div id="aba-imagens" class="tab-content hidden"><div class="bg-white p-6 rounded-xl"><h2 class="text-lg font-bold">🖼️ Imagens Criadas por Inteligência Artificial</h2><p class="text-sm text-slate-500">Gere criativos visuais para seus anúncios.</p></div></div>
-                <div id="aba-agendamentos" class="tab-content hidden"><div class="bg-white p-6 rounded-xl"><h2 class="text-lg font-bold">📅 Calendário de Postagens</h2><p class="text-sm text-slate-500">Monitore seus agendamentos.</p></div></div>
-
             </div>
-        </main>
-    </div>
 
-    <!-- LOGICA JAVASCRIPT COMPLETA E FUNCIONAL -->
+            <!-- ABA 2: CANAIS & TEMPLATES -->
+            <div id="aba-canais" class="tab-content hidden panel-box">
+                <h2 class="panel-title">🔗 Canais & Templates de Mensagens</h2>
+                <p class="panel-desc">Escolha modelos prontos para divulgação rápida nos grupos de WhatsApp e Telegram.</p>
+                <div style="padding: 20px; background-color: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0;">
+                    <h3 style="font-size: 15px; font-weight: bold; margin-bottom: 6px;">🔥 Achadinho Relâmpago Shopee</h3>
+                    <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">Modelo focado em escassez e alta conversão.</p>
+                    <button onclick="alert('Template copiado com sucesso!')" style="background-color: #0f172a; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Usar Template</button>
+                </div>
+            </div>
+
+            <!-- ABA 3: PRODUTOS -->
+            <div id="aba-produtos" class="tab-content hidden panel-box">
+                <h2 class="panel-title">📦 Produtos Integrados</h2>
+                <p class="panel-desc">Acompanhe o catálogo de produtos validados em alta comissão.</p>
+                <p style="font-size: 14px; color: #64748b;">Nenhum produto personalizado salvo recentemente. Utilize o buscador no painel geral.</p>
+            </div>
+
+            <!-- ABA 4: AUTOMAÇÕES -->
+            <div id="aba-automacoes" class="tab-content hidden panel-box">
+                <h2 class="panel-title">🤖 Configuração de Automações</h2>
+                <p class="panel-desc">Gerencie seus robôs de disparo e horários de postagem nos grupos.</p>
+                <div style="display: flex; gap: 16px;">
+                    <div style="flex: 1; padding: 16px; border: 1px solid #e2e8f0; border-radius: 10px;">
+                        <span style="font-size: 12px; font-weight: bold; color: #64748b;">VOLUME DIÁRIO</span>
+                        <p style="font-size: 16px; font-weight: bold; margin-top: 4px;">Até 20 produtos/dia</p>
+                    </div>
+                    <div style="flex: 1; padding: 16px; border: 1px solid #e2e8f0; border-radius: 10px;">
+                        <span style="font-size: 12px; font-weight: bold; color: #64748b;">STATUS DO ROBÔ</span>
+                        <p style="font-size: 16px; font-weight: bold; color: #16a34a; margin-top: 4px;">● Ativo e Monitorando</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA 5: IMAGENS IA -->
+            <div id="aba-imagens" class="tab-content hidden panel-box">
+                <h2 class="panel-title">🖼️ Imagens Criadas por Inteligência Artificial</h2>
+                <p class="panel-desc">Gere banners, mockups 3D e criativos visuais para impulsionar suas conversões.</p>
+                <input type="text" placeholder="Descreva a imagem que deseja gerar (ex: Capa chamativa para promoção de calçados)..." style="margin-bottom: 16px;">
+                <button onclick="alert('A gerar imagem com inteligência artificial...')" class="btn-primary" style="width: auto; padding: 10px 24px;">Gerar Imagem</button>
+            </div>
+
+            <!-- ABA 6: AGENDAMENTOS -->
+            <div id="aba-agendamentos" class="tab-content hidden panel-box">
+                <h2 class="panel-title">📅 Calendário de Agendamentos</h2>
+                <p class="panel-desc">Monitore os próximos disparos automáticos programados para os seus canais.</p>
+                <div style="padding: 30px; text-align: center; background-color: #f8fafc; border-radius: 10px; border: 1px dashed #cbd5e1; color: #64748b; font-size: 14px;">
+                    Nenhum agendamento pendente para hoje. Utilize as automações para programar novos horários.
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SCRIPTS DE NAVEGAÇÃO E FUNCIONALIDADE -->
     <script>
         function mudarAba(abaNome, elemento) {
+            // Esconde todas as abas
             document.querySelectorAll('.tab-content').forEach(aba => aba.classList.add('hidden'));
+            
+            // Mostra apenas a aba alvo
             const abaAlvo = document.getElementById('aba-' + abaNome);
             if(abaAlvo) abaAlvo.classList.remove('hidden');
 
+            // Dicionário de títulos para o topo
             const titulos = {
                 painel: "Visão Geral da Performance",
-                canais: "Canais & Templates",
-                produtos: "Gerenciamento de Produtos",
+                canais: "Canais & Templates de Mensagens",
+                produtos: "Produtos Integrados",
                 automacoes: "Configuração de Automações",
-                imagens: "Criação de Imagens com IA",
-                agendamentos: "Agendamento de Postagens"
+                imagens: "Imagens Criadas por IA",
+                agendamentos: "Fila de Agendamentos"
             };
             
             if(titulos[abaNome]) {
                 document.getElementById('tituloTopo').innerText = titulos[abaNome];
             }
 
+            // Remove o destaque de todos os botões do menu e aplica no clicado
             document.querySelectorAll('.menu-btn').forEach(btn => {
-                btn.classList.remove('bg-orange-600', 'text-white', 'font-medium');
-                btn.classList.add('text-slate-300', 'hover:bg-slate-800');
+                btn.classList.remove('active');
             });
             
             if(elemento) {
-                elemento.classList.remove('text-slate-300', 'hover:bg-slate-800');
-                elemento.classList.add('bg-orange-600', 'text-white', 'font-medium');
+                elemento.classList.add('active');
             }
         }
 
@@ -157,7 +246,7 @@
             const linkProntoInput = document.getElementById('linkPronto');
 
             if (!linkOriginal) {
-                alert('Por favor, insira um produto ou link!');
+                alert('Por favor, digite um produto ou link!');
                 return;
             }
 

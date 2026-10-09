@@ -77,13 +77,20 @@
         </main>
     </div>
 <script>
-  // Script simples para alternar as abas do painel
   document.addEventListener('DOMContentLoaded', function() {
     const botoes = document.querySelectorAll('button, a');
+    
     botoes.forEach(botao => {
       botao.addEventListener('click', function(e) {
-        const texto = this.innerText.trim().toLowerCase();
-        console.log('Clicou em:', texto);
+        // Remove o destaque de todos os botões e coloca no botão clicado
+        botoes.forEach(b => b.classList.remove('bg-purple-700', 'bg-blue-600', 'text-white', 'shadow-lg'));
+        this.classList.add('bg-purple-700', 'text-white', 'shadow-lg');
+        
+        // Mensagem visual rápida para confirmar que o botão respondeu
+        const nomeBotao = this.innerText.trim();
+        if (nomeBotao) {
+          console.log('Aba selecionada:', nomeBotao);
+        }
       });
     });
   });

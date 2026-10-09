@@ -82,14 +82,19 @@
     
     botoes.forEach(botao => {
       botao.addEventListener('click', function(e) {
-        // Remove o destaque de todos os botões e coloca no botão clicado
-        botoes.forEach(b => b.classList.remove('bg-purple-700', 'bg-blue-600', 'text-white', 'shadow-lg'));
+        const nomeBotao = this.innerText.trim();
+        if (!nomeBotao || nomeBotao.length > 30) return;
+        
+        // Remove o destaque de todos os botões
+        botoes.forEach(b => b.classList.remove('bg-purple-700', 'bg-blue-600', 'text-white', 'shadow-lg', 'bg-opacity-25'));
+        
+        // Destaca o botão que foi clicado
         this.classList.add('bg-purple-700', 'text-white', 'shadow-lg');
         
-        // Mensagem visual rápida para confirmar que o botão respondeu
-        const nomeBotao = this.innerText.trim();
-        if (nomeBotao) {
-          console.log('Aba selecionada:', nomeBotao);
+        // Atualiza o título principal da página com o nome do menu clicado
+        const tituloPrincipal = document.querySelector('main h1, main h2, h1, h2');
+        if (tituloPrincipal) {
+          tituloPrincipal.innerText = nomeBotao;
         }
       });
     });

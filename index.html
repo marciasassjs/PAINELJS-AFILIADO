@@ -82,19 +82,28 @@
     
     botoes.forEach(botao => {
       botao.addEventListener('click', function(e) {
-        const nomeBotao = this.innerText.trim();
-        if (!nomeBotao || nomeBotao.length > 30) return;
+        const texto = this.innerText.trim().toLowerCase();
+        if (!texto || texto.length > 30) return;
         
-        // Remove o destaque de todos os botões
+        // Destaca o botão clicado
         botoes.forEach(b => b.classList.remove('bg-purple-700', 'bg-blue-600', 'text-white', 'shadow-lg', 'bg-opacity-25'));
-        
-        // Destaca o botão que foi clicado
         this.classList.add('bg-purple-700', 'text-white', 'shadow-lg');
         
-        // Atualiza o título principal da página com o nome do menu clicado
-        const tituloPrincipal = document.querySelector('main h1, main h2, h1, h2');
-        if (tituloPrincipal) {
-          tituloPrincipal.innerText = nomeBotao;
+        // Encontra a seção correspondente na página para rolar até ela
+        const headings = document.querySelectorAll('h1, h2, h3, h4');
+        let alvoEncontrado = null;
+        
+        headings.forEach(h => {
+          const hText = h.innerText.toLowerCase();
+          if (texto.includes('radar') && hText.includes('radar')) alvoEncontrado = h;
+          else if (texto.includes('validador') && hText.includes('validador')) alvoEncontrado = h;
+          else if (texto.includes('conteúdo') && hText.includes('conteúdo')) alvoEncontrado = h;
+          else if (texto.includes('links') && hText.includes('links')) alvoEncontrado = h;
+          else if (texto.includes('painel') && (hText.includes('centro') || hText.includes('radar'))) alvoEncontrado = h;
+        });
+        
+        if (alvoEncontrado) {
+          alvoEncontrado.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });

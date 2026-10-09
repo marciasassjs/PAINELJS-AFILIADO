@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Automação - Afiliados</title>
+    <title>Painel de Automação - Afiliados | ShôIA</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -17,12 +17,12 @@
                     <span class="text-xs bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded">Pro</span>
                 </div>
                 <nav class="space-y-1 text-sm">
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-orange-600 text-white font-medium">📊 <span>Painel</span></a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">🔗 <span>Canais & Templates</span></a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">📦 <span>Produtos</span></a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">🤖 <span>Automações</span></a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">🖼️ <span>Imagens IA</span></a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800">📅 <span>Agendamentos</span></a>
+                    <button onclick="mudarAba('painel', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-orange-600 text-white font-medium w-full text-left transition-all">📊 <span>Painel</span></button>
+                    <button onclick="mudarAba('canais', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">🔗 <span>Canais & Templates</span></button>
+                    <button onclick="mudarAba('produtos', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">📦 <span>Produtos</span></button>
+                    <button onclick="mudarAba('automacoes', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">🤖 <span>Automações</span></button>
+                    <button onclick="mudarAba('imagens', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">🖼️ <span>Imagens IA</span></button>
+                    <button onclick="mudarAba('agendamentos', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">📅 <span>Agendamentos</span></button>
                 </nav>
             </div>
             <div class="p-4 bg-slate-950 text-xs text-slate-400">
@@ -33,81 +33,154 @@
         <!-- Main Content -->
         <main class="flex-1 flex flex-col overflow-y-auto">
             <header class="bg-white shadow-sm h-16 flex items-center justify-between px-6">
-                <h1 class="text-xl font-bold text-slate-800">Visão Geral da Performance</h1>
+                <h1 id="tituloTopo" class="text-xl font-bold text-slate-800">Visão Geral da Performance</h1>
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-slate-600">Olá, Afiliado(a)</span>
                 </div>
             </header>
 
-            <div class="p-6 space-y-6">
-                <!-- Metrics Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
-                        <p class="text-sm text-slate-500">Produtos Mais Vendidos</p>
-                        <h3 class="text-2xl font-bold text-slate-800 mt-1">Smart TV 49" UHD</h3>
-                        <span class="text-xs text-green-600 font-medium">+12% que ontem</span>
+            <div class="p-6">
+                
+                <!-- ABA 1: PAINEL -->
+                <div id="aba-painel" class="space-y-6 tab-content">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                            <p class="text-sm text-slate-500">Produtos Mais Vendidos</p>
+                            <h3 class="text-2xl font-bold text-slate-800 mt-1">Smart TV 49" UHD</h3>
+                            <span class="text-xs text-green-600 font-medium">+12% que ontem</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                            <p class="text-sm text-slate-500">Itens Vendidos (7 dias)</p>
+                            <h3 class="text-2xl font-bold text-slate-800 mt-1">1.240 un.</h3>
+                            <span class="text-xs text-green-600 font-medium">Meta batida</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                            <p class="text-sm text-slate-500">Comissões Acumuladas</p>
+                            <h3 class="text-2xl font-bold text-orange-600 mt-1">R$ 4.890,20</h3>
+                            <span class="text-xs text-slate-400">Atualizado agora</span>
+                        </div>
                     </div>
-                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
-                        <p class="text-sm text-slate-500">Itens Vendidos (7 dias)</p>
-                        <h3 class="text-2xl font-bold text-slate-800 mt-1">1.240 un.</h3>
-                        <span class="text-xs text-green-600 font-medium">Meta batida</span>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
-                        <p class="text-sm text-slate-500">Comissões Acumuladas</p>
-                        <h3 class="text-2xl font-bold text-orange-600 mt-1">R$ 4.890,20</h3>
-                        <span class="text-xs text-slate-400">Atualizado agora</span>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h2 class="text-lg font-semibold text-slate-800 mb-2">Converter Link de Afiliado</h2>
+                        <p class="text-xs text-slate-500 mb-4">Insira o link original do produto para gerar seu link com ID de afiliado.</p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Seu ID de Afiliado</label>
+                                <input type="text" id="afiliadoId" value="meu_id_shopee" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm font-mono text-slate-800 focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Link Original do Produto</label>
+                                <input type="text" id="linkOriginal" placeholder="https://shopee.com.br..." class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                            </div>
+
+                            <button onclick="gerarLinkAfiliado()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2.5 px-4 rounded-lg transition text-sm">
+                                ✨ Gerar Link Automático
+                            </button>
+
+                            <div id="resultadoDiv" class="hidden p-4 border border-green-200 bg-green-50 rounded-lg mt-4">
+                                <label class="block text-sm font-medium text-green-800 mb-1">Seu Link Pronto:</label>
+                                <div class="flex space-x-2">
+                                    <input type="text" id="linkPronto" readonly class="flex-1 bg-white border border-green-300 rounded-lg p-2 text-sm text-green-700 font-mono">
+                                    <button onclick="copiarTexto()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                                        Copiar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Automation Settings Preview -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                    <h2 class="text-lg font-semibold text-slate-800 mb-4">Configuração de Disparos e Stories</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 border rounded-lg bg-slate-50">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Volume por Disparo</label>
-                            <input type="text" value="1 a 20 produtos por grupo" readonly class="w-full bg-white border border-slate-300 rounded-lg p-2 text-sm text-slate-600">
-                        </div>
-                        <div class="p-4 border rounded-lg bg-slate-50">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Janela de Horário</label>
-                            <input type="text" value="08:00 às 22:00 (Rotativo)" readonly class="w-full bg-white border border-slate-300 rounded-lg p-2 text-sm text-slate-600">
+                <!-- ABA 2: CANAIS & TEMPLATES -->
+                <div id="aba-canais" class="space-y-6 tab-content hidden">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h2 class="text-lg font-semibold text-slate-800 mb-2">Canais & Templates de Mensagens</h2>
+                        <p class="text-sm text-slate-600 mb-4">Escolha um modelo pronto para divulgar nos seus grupos de WhatsApp ou Telegram.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 border rounded-lg bg-slate-50">
+                                <h3 class="font-bold text-slate-800">🔥 Achadinho da Shopee</h3>
+                                <p class="text-xs text-slate-500 mt-1">Modelo focado em escassez e desconto relâmpago.</p>
+                                <button onclick="alert('Template copiado com sucesso!')" class="mt-3 bg-slate-900 text-white text-xs px-3 py-1.5 rounded">Usar Template</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- OUTRAS ABAS -->
+                <div id="aba-produtos" class="tab-content hidden"><div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100"><h2 class="text-lg font-bold text-slate-800">📦 Seus Produtos</h2><p class="text-sm text-slate-500 mt-1">Gerencie a lista de produtos integrados aqui.</p></div></div>
+                <div id="aba-automacoes" class="tab-content hidden"><div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100"><h2 class="text-lg font-bold text-slate-800">🤖 Automações</h2><p class="text-sm text-slate-500 mt-1">Configure seus robôs de postagem automática.</p></div></div>
+                <div id="aba-imagens" class="tab-content hidden"><div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100"><h2 class="text-lg font-bold text-slate-800">🖼️ Imagens Criadas por Inteligência Artificial</h2><p class="text-sm text-slate-500 mt-1">Gere criativos visuais para seus anúncios.</p></div></div>
+                <div id="aba-agendamentos" class="tab-content hidden"><div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100"><h2 class="text-lg font-bold text-slate-800">📅 Calendário de Postagens</h2><p class="text-sm text-slate-500 mt-1">Monitore seus agendamentos ativos.</p></div></div>
+
             </div>
         </main>
     </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const botoes = document.querySelectorAll('button, a');
-    
-    botoes.forEach(botao => {
-      botao.addEventListener('click', function(e) {
-        const texto = this.innerText.trim().toLowerCase();
-        if (!texto || texto.length > 30) return;
-        
-        // Destaca o botão clicado
-        botoes.forEach(b => b.classList.remove('bg-purple-700', 'bg-blue-600', 'text-white', 'shadow-lg', 'bg-opacity-25'));
-        this.classList.add('bg-purple-700', 'text-white', 'shadow-lg');
-        
-        // Encontra a seção correspondente na página para rolar até ela
-        const headings = document.querySelectorAll('h1, h2, h3, h4');
-        let alvoEncontrado = null;
-        
-        headings.forEach(h => {
-          const hText = h.innerText.toLowerCase();
-          if (texto.includes('radar') && hText.includes('radar')) alvoEncontrado = h;
-          else if (texto.includes('validador') && hText.includes('validador')) alvoEncontrado = h;
-          else if (texto.includes('conteúdo') && hText.includes('conteúdo')) alvoEncontrado = h;
-          else if (texto.includes('links') && hText.includes('links')) alvoEncontrado = h;
-          else if (texto.includes('painel') && (hText.includes('centro') || hText.includes('radar'))) alvoEncontrado = h;
-        });
-        
-        if (alvoEncontrado) {
-          alvoEncontrado.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    <!-- LOGICA JAVASCRIPT COMPLETA -->
+    <script>
+        function mudarAba(abaNome, elemento) {
+            document.querySelectorAll('.tab-content').forEach(aba => aba.classList.add('hidden'));
+            
+            const abaAlvo = document.getElementById('aba-' + abaNome);
+            if(abaAlvo) abaAlvo.classList.remove('hidden');
+
+            const titulos = {
+                painel: "Visão Geral da Performance",
+                canais: "Canais & Templates de Mensagens",
+                produtos: "Seus Produtos",
+                automacoes: "Automações",
+                imagens: "Imagens Criadas por Inteligência Artificial",
+                agendamentos: "Calendário de Postagens"
+            };
+            
+            if(titulos[abaNome]) {
+                document.getElementById('tituloTopo').innerText = titulos[abaNome];
+            }
+
+            document.querySelectorAll('.menu-btn').forEach(btn => {
+                btn.classList.remove('bg-orange-600', 'text-white', 'font-medium');
+                btn.classList.add('text-slate-300', 'hover:bg-slate-800');
+            });
+            
+            if(elemento) {
+                elemento.classList.remove('text-slate-300', 'hover:bg-slate-800');
+                elemento.classList.add('bg-orange-600', 'text-white', 'font-medium');
+            }
         }
-      });
-    });
-  });
-</script>
+
+        function gerarLinkAfiliado() {
+            const idAfiliado = document.getElementById('afiliadoId').value.trim();
+            const linkOriginal = document.getElementById('linkOriginal').value.trim();
+            const resultadoDiv = document.getElementById('resultadoDiv');
+            const linkProntoInput = document.getElementById('linkPronto');
+
+            if (!linkOriginal) {
+                alert('Por favor, insira o link do produto!');
+                return;
+            }
+
+            let linkFinal = '';
+            if (linkOriginal.includes('shopee.com')) {
+                linkFinal = `https://shope.ee/${encodeURIComponent(linkOriginal)}&sub_id=${idAfiliado}`;
+            } else if (linkOriginal.includes('mercadolivre.com')) {
+                linkFinal = `${linkOriginal}?seller_id=${idAfiliado}`;
+            } else {
+                linkFinal = `${linkOriginal}?ref=${idAfiliado}`;
+            }
+
+            linkProntoInput.value = linkFinal;
+            resultadoDiv.classList.remove('hidden');
+        }
+
+        function copiarTexto() {
+            const copyText = document.getElementById("linkPronto");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            alert("Link copiado com sucesso!");
+        }
+    </script>
 </body>
 </html>

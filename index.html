@@ -76,6 +76,17 @@
             </div>
         </main>
     </div>
-
+<script>
+  // Script simples para alternar as abas do painel
+  document.addEventListener('DOMContentLoaded', function() {
+    const botoes = document.querySelectorAll('button, a');
+    botoes.forEach(botao => {
+      botao.addEventListener('click', function(e) {
+        const texto = this.innerText.trim().toLowerCase();
+        console.log('Clicou em:', texto);
+      });
+    });
+  });
+</script>
 </body>
 </html>

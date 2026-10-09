@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Automação - Afiliados | ShôIA</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 font-sans">
 
@@ -17,12 +17,12 @@
                     <span class="text-xs bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded">Pro</span>
                 </div>
                 <nav class="space-y-1 text-sm">
-                    <button onclick="mudarAba('painel', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-orange-600 text-white font-medium w-full text-left transition-all">📊 <span>Painel</span></button>
-                    <button onclick="mudarAba('canais', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">🔗 <span>Canais & Templates</span></button>
-                    <button onclick="mudarAba('produtos', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">📦 <span>Produtos</span></button>
-                    <button onclick="mudarAba('automacoes', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">🤖 <span>Automações</span></button>
-                    <button onclick="mudarAba('imagens', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">🖼️ <span>Imagens IA</span></button>
-                    <button onclick="mudarAba('agendamentos', this)" class="menu-btn flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 w-full text-left transition-all">📅 <span>Agendamentos</span></button>
+                    <button onclick="mudarAba('painel', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-orange-600 text-white font-medium text-left transition-all">📊 <span>Painel</span></button>
+                    <button onclick="mudarAba('canais', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">🔗 <span>Canais & Templates</span></button>
+                    <button onclick="mudarAba('produtos', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">📦 <span>Produtos</span></button>
+                    <button onclick="mudarAba('automacoes', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">🤖 <span>Automações</span></button>
+                    <button onclick="mudarAba('imagens', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">🖼️ <span>Imagens IA</span></button>
+                    <button onclick="mudarAba('agendamentos', this)" class="menu-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 text-left transition-all">📅 <span>Agendamentos</span></button>
                 </nav>
             </div>
             <div class="p-4 bg-slate-950 text-xs text-slate-400">
@@ -41,8 +41,42 @@
 
             <div class="p-6">
                 
-                <!-- ABA 1: PAINEL -->
+                <!-- ABA 1: PAINEL (Gerador Sempre Visível no Topo) -->
                 <div id="aba-painel" class="space-y-6 tab-content">
+                    
+                    <!-- Bloco do Gerador/Buscador -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h2 class="text-lg font-semibold text-slate-800 mb-2">Buscar Produto ou Converter Link</h2>
+                        <p class="text-xs text-slate-500 mb-4">Digite o que você quer buscar (ex: calça, perfume) ou cole um link original da Shopee.</p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Seu ID de Afiliado</label>
+                                <input type="text" id="afiliadoId" value="meu_id_shopee" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm font-mono text-slate-800 focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">O que você quer divulgar?</label>
+                                <input type="text" id="linkOriginal" placeholder="Digite o produto (ex: uma saia) ou cole o link aqui..." class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                            </div>
+
+                            <button onclick="gerarLinkAfiliado()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2.5 px-4 rounded-lg transition text-sm">
+                                ✨ Gerar Link Automático
+                            </button>
+
+                            <div id="resultadoDiv" class="hidden p-4 border border-green-200 bg-green-50 rounded-lg mt-4">
+                                <label class="block text-sm font-medium text-green-800 mb-1">Seu Link Pronto de Afiliado:</label>
+                                <div class="flex space-x-2">
+                                    <input type="text" id="linkPronto" readonly class="flex-1 bg-white border border-green-300 rounded-lg p-2 text-sm text-green-700 font-mono">
+                                    <button onclick="copiarTexto()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                                        Copiar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dados de Vendas (Fica logo abaixo do gerador) -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
                             <p class="text-sm text-slate-500">Produtos Mais Vendidos</p>
@@ -60,79 +94,45 @@
                             <span class="text-xs text-slate-400">Atualizado agora</span>
                         </div>
                     </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                        <h2 class="text-lg font-semibold text-slate-800 mb-2">Converter Link de Afiliado</h2>
-                        <p class="text-xs text-slate-500 mb-4">Insira o link original do produto para gerar seu link com ID de afiliado.</p>
-                        
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Seu ID de Afiliado</label>
-                                <input type="text" id="afiliadoId" value="meu_id_shopee" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm font-mono text-slate-800 focus:ring-2 focus:ring-orange-500 focus:outline-none">
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Link Original do Produto</label>
-                                <input type="text" id="linkOriginal" placeholder="https://shopee.com.br..." class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 focus:ring-2 focus:ring-orange-500 focus:outline-none">
-                            </div>
-
-                            <button onclick="gerarLinkAfiliado()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2.5 px-4 rounded-lg transition text-sm">
-                                ✨ Gerar Link Automático
-                            </button>
-
-                            <div id="resultadoDiv" class="hidden p-4 border border-green-200 bg-green-50 rounded-lg mt-4">
-                                <label class="block text-sm font-medium text-green-800 mb-1">Seu Link Pronto:</label>
-                                <div class="flex space-x-2">
-                                    <input type="text" id="linkPronto" readonly class="flex-1 bg-white border border-green-300 rounded-lg p-2 text-sm text-green-700 font-mono">
-                                    <button onclick="copiarTexto()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                                        Copiar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- ABA 2: CANAIS & TEMPLATES -->
                 <div id="aba-canais" class="space-y-6 tab-content hidden">
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
                         <h2 class="text-lg font-semibold text-slate-800 mb-2">Canais & Templates de Mensagens</h2>
-                        <p class="text-sm text-slate-600 mb-4">Escolha um modelo pronto para divulgar nos seus grupos de WhatsApp ou Telegram.</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 border rounded-lg bg-slate-50">
-                                <h3 class="font-bold text-slate-800">🔥 Achadinho da Shopee</h3>
-                                <p class="text-xs text-slate-500 mt-1">Modelo focado em escassez e desconto relâmpago.</p>
-                                <button onclick="alert('Template copiado com sucesso!')" class="mt-3 bg-slate-900 text-white text-xs px-3 py-1.5 rounded">Usar Template</button>
-                            </div>
+                        <p class="text-sm text-slate-600 mb-4">Escolha um modelo pronto para divulgar nos seus grupos.</p>
+                        <div class="p-4 border rounded-lg bg-slate-50 max-w-md">
+                            <h3 class="font-bold text-slate-800">🔥 Achadinho da Shopee</h3>
+                            <p class="text-xs text-slate-500 mt-1">Modelo focado em escassez e desconto relâmpago.</p>
+                            <button onclick="alert('Template copiado!')" class="mt-3 bg-slate-900 text-white text-xs px-3 py-1.5 rounded">Usar Template</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- OUTRAS ABAS -->
-                <div id="aba-produtos" class="tab-content hidden"><div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100"><h2 class="text-lg font-bold text-slate-800">📦 Seus Produtos</h2><p class="text-sm text-slate-500 mt-1">Gerencie a lista de produtos integrados aqui.</p></div></div>
-                <div id="aba-automacoes" class="tab-content hidden"><div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100"><h2 class="text-lg font-bold text-slate-800">🤖 Automações</h2><p class="text-sm text-slate-500 mt-1">Configure seus robôs de postagem automática.</p></div></div>
-                <div id="aba-imagens" class="tab-content hidden"><div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100"><h2 class="text-lg font-bold text-slate-800">🖼️ Imagens Criadas por Inteligência Artificial</h2><p class="text-sm text-slate-500 mt-1">Gere criativos visuais para seus anúncios.</p></div></div>
-                <div id="aba-agendamentos" class="tab-content hidden"><div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100"><h2 class="text-lg font-bold text-slate-800">📅 Calendário de Postagens</h2><p class="text-sm text-slate-500 mt-1">Monitore seus agendamentos ativos.</p></div></div>
+                <div id="aba-produtos" class="tab-content hidden"><div class="bg-white p-6 rounded-xl"><h2 class="text-lg font-bold">📦 Seus Produtos</h2><p class="text-sm text-slate-500">Gerencie a lista de produtos aqui.</p></div></div>
+                <div id="aba-automacoes" class="tab-content hidden"><div class="bg-white p-6 rounded-xl"><h2 class="text-lg font-bold">🤖 Automações</h2><p class="text-sm text-slate-500">Configure seus robôs de postagem.</p></div></div>
+                <div id="aba-imagens" class="tab-content hidden"><div class="bg-white p-6 rounded-xl"><h2 class="text-lg font-bold">🖼️ Imagens Criadas por Inteligência Artificial</h2><p class="text-sm text-slate-500">Gere criativos visuais para seus anúncios.</p></div></div>
+                <div id="aba-agendamentos" class="tab-content hidden"><div class="bg-white p-6 rounded-xl"><h2 class="text-lg font-bold">📅 Calendário de Postagens</h2><p class="text-sm text-slate-500">Monitore seus agendamentos.</p></div></div>
 
             </div>
         </main>
     </div>
 
-    <!-- LOGICA JAVASCRIPT COMPLETA -->
+    <!-- LOGICA JAVASCRIPT COMPLETA E FUNCIONAL -->
     <script>
         function mudarAba(abaNome, elemento) {
             document.querySelectorAll('.tab-content').forEach(aba => aba.classList.add('hidden'));
-            
             const abaAlvo = document.getElementById('aba-' + abaNome);
             if(abaAlvo) abaAlvo.classList.remove('hidden');
 
             const titulos = {
                 painel: "Visão Geral da Performance",
-                canais: "Canais & Templates de Mensagens",
-                produtos: "Seus Produtos",
-                automacoes: "Automações",
-                imagens: "Imagens Criadas por Inteligência Artificial",
-                agendamentos: "Calendário de Postagens"
+                canais: "Canais & Templates",
+                produtos: "Gerenciamento de Produtos",
+                automacoes: "Configuração de Automações",
+                imagens: "Criação de Imagens com IA",
+                agendamentos: "Agendamento de Postagens"
             };
             
             if(titulos[abaNome]) {
@@ -157,7 +157,7 @@
             const linkProntoInput = document.getElementById('linkPronto');
 
             if (!linkOriginal) {
-                alert('Por favor, insira o link do produto!');
+                alert('Por favor, insira um produto ou link!');
                 return;
             }
 
@@ -167,7 +167,7 @@
             } else if (linkOriginal.includes('mercadolivre.com')) {
                 linkFinal = `${linkOriginal}?seller_id=${idAfiliado}`;
             } else {
-                linkFinal = `${linkOriginal}?ref=${idAfiliado}`;
+                linkFinal = `https://shope.ee/search?q=${encodeURIComponent(linkOriginal)}&sub_id=${idAfiliado}`;
             }
 
             linkProntoInput.value = linkFinal;
